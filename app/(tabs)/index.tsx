@@ -1,16 +1,26 @@
-import{View,Text,StyleSheet, Pressable} from "react-native";
+import { useRouter } from "expo-router";
+import ProgressBar from "../../components/ProgressBar";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+
+
+
 
 export default function HomeScreen(){
+    const router = useRouter();
     return(
-        <View style={styles.container}>
-            <Text style={styles.title}> My Budget App </Text>
+        <View style={styles.container} >
+            <Text style={styles.title}> Guilt Free Budgeting!!! </Text>
             <Text style={styles.points}>Points: 0</Text>
-            <Pressable style={styles.button}>
+
+            <Pressable style={styles.button} onPress={()=> router.push("/tasks")}>
                 <Text style = {styles.buttonText}>Go to Tasks</Text>
             </Pressable>
         </View>
     );
 }
+
+
+
 const styles = StyleSheet.create({
     container:{
         flex: 1,
@@ -37,6 +47,6 @@ const styles = StyleSheet.create({
         color:"#fff",
         fontSize:18,
         textAlign:"center",
-        fontWeight:600,
+        fontWeight:"600",
     }
 })
