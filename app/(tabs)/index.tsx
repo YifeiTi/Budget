@@ -12,9 +12,12 @@ export default function HomeScreen(){
             <Text style={styles.title}> Guilt Free Budgeting!!! </Text>
             <Text style={styles.points}>Points: 0</Text>
 
+            <ProgressBar progress = {80}></ProgressBar>
             <Pressable style={styles.button} onPress={()=> router.push("/tasks")}>
                 <Text style = {styles.buttonText}>Go to Tasks</Text>
             </Pressable>
+
+
         </View>
     );
 }
