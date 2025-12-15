@@ -7,6 +7,7 @@ type Task = {
     id: string;
     title: string;
     points: number;
+    completed: boolean;
 }
 
 
@@ -15,13 +16,16 @@ export default function Tasks(){
     const router = useRouter();
 
     const[tasks] = useState<Task[]>([
-        {id: "1", title: "Go to the Gym", points: 10},
-        {id: "2", title: "Cook a Meal", points: 5},
-        {id: "3", title: "Finish Project", points: 15},
+        {id: "1", title: "Go to the Gym", points: 10, completed: false},
+        {id: "2", title: "Cook a Meal", points: 5, completed: false},
+        {id: "3", title: "Finish Project", points: 15, completed: false},
+        {id: "4", title: "Walk the Dog", points:3, completed: false},
     ]);
     const handleTaskPress = ( task: Task) =>{
         console.log("Pressed:", task.title);
+        
     };
+
     return(
         <View style = {styles.container}>
             <Text style = {styles.title}>Tasks</Text>
