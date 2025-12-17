@@ -16,6 +16,9 @@ export default function HomeScreen(){
             <Pressable style={styles.button} onPress={()=> router.push("/tasks")}>
                 <Text style = {styles.buttonText}>Go to Tasks</Text>
             </Pressable>
+            <Pressable style={styles.button} onPress={()=> router.push("/stats")}>
+                <Text style = {styles.buttonText}>Go to Stats</Text>
+            </Pressable>
 
 
         </View>

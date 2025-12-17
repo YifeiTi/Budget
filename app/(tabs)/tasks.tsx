@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, Pressable, FlatList} from "react-native";
 import {useRouter} from "expo-router";
 import {useState} from "react";
+import ProgressBar from "@/components/ProgressBar";
 
 
 type Task = {
@@ -14,12 +15,13 @@ type Task = {
 
 export default function Tasks(){
     const router = useRouter();
+    const placeHolderPoints = 100;
 
     const[tasks, setTasks] = useState<Task[]>([
-        {id: "1", title: "Go to the Gym", points: 10, completed: false},
-        {id: "2", title: "Cook a Meal", points: 5, completed: false},
-        {id: "3", title: "Finish Project", points: 15, completed: false},
-        {id: "4", title: "Walk the Dog", points:3, completed: false},
+        {id: "1", title: "Go to the Gym", points: 30, completed: false},
+        {id: "2", title: "Cook a Meal", points: 10, completed: false},
+        {id: "3", title: "Finish Project", points: 50, completed: false},
+        {id: "4", title: "Walk the Dog", points:10, completed: false},
     ]);
     const handleTaskPress = ( task: Task) =>{
         const updatedTasks = tasks.map((t) =>{
@@ -34,12 +36,16 @@ export default function Tasks(){
         setTasks(updatedTasks);
     };
 
-    const totalPoints = tasks
+    const totalPoints = tasks //the filter gets rid of Task items that aren't complete
         .filter((task) => task.completed).reduce((sum, task) => sum + task.points, 0);
+
+    const progress = Math.min((totalPoints/placeHolderPoints)*100, 100)
     return(
         <View style = {styles.container}>
             <Text style = {styles.title}>Tasks</Text>
             <Text style = {styles.points}> Total Points: {totalPoints}</Text>
+                {totalPoints >= placeHolderPoints && <Text style = {styles.taskDone} >Budget Unlocked!!</Text>}
+            <ProgressBar progress={progress}/>
             <FlatList 
                 data= {tasks}
                 keyExtractor={(item) => item.id}
@@ -94,5 +100,12 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         fontSize: 20,
         marginBottom: 16,
-   }
+   },
+   taskDone:{
+        fontWeight: "600",
+        fontSize: 20,
+        marginBottom: 16,
+        display: "flex",
+   },
+   
 })
