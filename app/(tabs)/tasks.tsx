@@ -2,42 +2,22 @@ import {View, Text, StyleSheet, Pressable, FlatList} from "react-native";
 import {useRouter} from "expo-router";
 import {useState} from "react";
 import ProgressBar from "@/components/ProgressBar";
-
-
-type Task = {
-    id: string;
-    title: string;
-    points: number;
-    completed: boolean;
-}
+import {useTask} from "@/context/TasksContext"
 
 
 
+
+ 
 export default function Tasks(){
+    const {tasks, toggleTask} = useTask();
     const router = useRouter();
     const placeHolderPoints = 100;
 
-    const[tasks, setTasks] = useState<Task[]>([
-        {id: "1", title: "Go to the Gym", points: 30, completed: false},
-        {id: "2", title: "Cook a Meal", points: 10, completed: false},
-        {id: "3", title: "Finish Project", points: 50, completed: false},
-        {id: "4", title: "Walk the Dog", points:10, completed: false},
-    ]);
-    const handleTaskPress = ( task: Task) =>{
-        const updatedTasks = tasks.map((t) =>{
-            if (t.id === task.id){
-                return{
-                    ...t,//expands the component t into its individual components
-                    completed: !t.completed, //change completed to the opposite of what it was
-                };
-            }
-            return t;
-        });
-        setTasks(updatedTasks);
-    };
+   
+    
 
     const totalPoints = tasks //the filter gets rid of Task items that aren't complete
-        .filter((task) => task.completed).reduce((sum, task) => sum + task.points, 0);
+        .filter(task => task.completed).reduce((sum: number, task) => sum + task.points, 0);
 
     const progress = Math.min((totalPoints/placeHolderPoints)*100, 100)
     return(
@@ -50,7 +30,7 @@ export default function Tasks(){
                 data= {tasks}
                 keyExtractor={(item) => item.id}
                 renderItem = {({item}) =>( 
-                <Pressable style = {[styles.taskItem, item.completed && styles.taskCompleted]} onPress ={()=> handleTaskPress(item)}>
+                <Pressable style = {[styles.taskItem, item.completed && styles.taskCompleted]} onPress ={()=> toggleTask(item.id)}>
                     <Text style = {[styles.taskTitle, item.completed && styles.taskTitleCompleted]}> {item.title}</Text>
                     <Text style = {styles.taskPoints}>{item.points} pts</Text>
                 </Pressable>
