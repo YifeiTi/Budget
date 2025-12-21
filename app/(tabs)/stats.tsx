@@ -11,6 +11,8 @@ export default function Stats(){
     return(
         <View style = {styles.background}>
             <Text style = {styles.title}> Stats:</Text>
+            <Text> Completed Tasks: {completedTasks}</Text>
+            <Text> Total Points: {totalPoints}</Text>
         </View>
     )
 }

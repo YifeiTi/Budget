@@ -7,6 +7,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { TaskProvider } from '@/context/TasksContext';
+import { RedeemProvider } from '@/context/RedeemContext';
 
 
 
@@ -16,6 +17,7 @@ export default function TabLayout() {
 
   return (
     <TaskProvider>
+    <RedeemProvider>
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -45,6 +47,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </RedeemProvider>
     </TaskProvider>
   );
 }
